@@ -1,0 +1,26 @@
+.head{
+    position:relative;
+    overflow:hidden;
+    padding-top:calc(7rem + 72px);
+    padding-bottom:7rem;
+    background-image: url("../img/foto.jpg");
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-attachment:scroll;
+    background-size:cover;
+    color: white;
+}
+
+.conteudo{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 10%;
+    margin-right: 10%;
+    line-height: 2em;
+
+}
+
+.imagem{
+    max-width: 100%;
+    height: auto;
+}
