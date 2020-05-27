@@ -24,3 +24,9 @@
     max-width: 100%;
     height: auto;
 }
+
+.alert-light{
+    margin-bottom: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}

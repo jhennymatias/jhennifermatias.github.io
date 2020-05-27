@@ -59,75 +59,81 @@
        deste modo vim compartilhar com você as etapas que precisei para fazer essa 
        instalação, então vamos lá!
     </p>
-
     <ol>
       <li>
-        Passo: O Quartus precisa de dependências 32 bits, assim o sistema precisa ser preparado assim execute os seguintes comando no terminal:
-        sudo dpkg --add-architecture i386
-        sudo apt update
-        sudo apt install libxft2:i386 libxext6:i386 libncurses5:i386 bzip2:i386
+          Passo: O Quartus precisa de dependências 32 bits, assim o sistema precisa ser preparado assim execute os seguintes comando no terminal:
+          <br>
+          <p class="alert alert-light">sudo dpkg --add-architecture i386</p>
+          <p class="alert alert-light">sudo apt update</p>
+          <p class="alert alert-light">sudo apt install libxft2:i386 libxext6:i386 libncurses5:i386 bzip2:i386</p>
       </li>
       <li>
-        Passo: libpng não está sendo atualizada a partir do Ubuntu 16.04 então utilizar sudo apt install, não é uma opção. Tente:
-        sudo wget http://ftp.us.debian.org/debian/pool/main/libp/libpng/libpng12-0_1.2.50-2+deb8u3_amd64.deb
-        $ sudo dpkg -i libpng12-0_1.2.50-2+deb8u3_amd64.deb
-        
-        Obs: Caso isso não funcionar continue este tutorial, mas para frente damos outra solução.        
+          Passo: libpng não está sendo atualizada a partir do Ubuntu 16.04 então utilizar sudo apt install, não é uma opção. Tente:
+          <p class="alert alert-light">sudo wget http://ftp.us.debian.org/debian/pool/main/libp/libpng/libpng12-0_1.2.50-2+deb8u3_amd64.deb</p>
+          <p class="alert alert-light">sudo dpkg -i libpng12-0_1.2.50-2+deb8u3_amd64.deb</p>
+          <p class="alert alert-warning">Obs: Caso isso não funcionar continue este tutorial.</p>        
       </li>
       <li>
-        Passo: Agora faremos o download do Quartus no site da Intel, precisa ser a opção Lite, pois a mesma é gratuita.
-        https://fpgasoftware.intel.com/13.1/?edition=web&platform=linux
+          Passo: Agora faremos o download do Quartus no site da Intel, precisa ser a opção Lite, pois a mesma é gratuita.
+          <a href="https://fpgasoftware.intel.com/13.1/?edition=web&platform=linux">Download</a>
       </li>
       <li>
-        Passo: Quando o download estiver finalizado descompacte o arquivo, após no terminal entre na pasta que foi descompactada:
-        
-        <p class="code">cd altera</p>
-        <p class="code">cd Components</p>
-        <p class="code">./QuartusSetupWeb-13.1.0.162</p>
-        
-        A tela de instalação será aberta, faça download apenas dos devices da placa que você utilizará. Além disso deixe a opção Prime Help e ModelSim deselecionado.  
-      <picture>
-          <img src="../img/quartusII.png" class="img-fluid img-thumbnail rounded imagem" >
-      </picture>
+          Passo: Quando o download estiver finalizado descompacte o arquivo, após no terminal entre na pasta que foi descompactada:  
+          <p class="alert alert-light">cd altera</p>
+          <p class="alert alert-light">cd Components</p>
+          <p class="alert alert-light">./QuartusSetupWeb-13.1.0.162</p>
+           A tela de instalação será aberta, faça download apenas dos devices da placa que você utilizará. Além disso deixe a opção Prime Help e ModelSim deselecionado.  
+          <br>
+           <picture>
+              <img src="../img/quartusII.png" class="img-fluid img-thumbnail rounded imagem" >
+          </picture>
       </li>
       <li>
-      Passo: para instalar o Quartus Help execute no terminal:
-      ./QuartusHelpSetup-13.1.0.162  
+          Passo: para instalar o Quartus Help execute no terminal na pasta Components novamente:
+          <p class="alert alert-light">./QuartusHelpSetup-13.1.0.162</p>  
       </li>
       <li>
-        Passo: Agora instalando o ModelSim:
-        ./ModelSimSetup-13.1.0.162
+          Passo: Agora instalando o ModelSim:
+          <p class="alert alert-light">./ModelSimSetup-13.1.0.162</p>
       </li>
       <li>
-        Passo: Agora vamos executar
-        cd altera/13.1/quartus/bin
-        ./quartus
-        Agora se der erro por causa da libpng12, execute no terminal:
-        export QUARTUS_64BIT=1
+          Passo: Agora vamos executar
+          <p class="alert alert-light">cd altera/13.1/quartus/bin</p>
+          <p class="alert alert-light">./quartus</p>
+          <p class="alert alert-warning">Agora se der erro por causa da libpng12, execute no terminal:</p>
+          <p class="alert alert-light">export QUARTUS_64BIT=1</p>
       </li>
       <li>
         Passo: USB Blaster: esse passo é extremamente importante
-        sudo 'gedit /etc/udev/rules.d/altera-usb-blaster.rules
-
+        <p class="alert alert-light">sudo 'gedit /etc/udev/rules.d/altera-usb-blaster.rules</p>
 
         Quando o arquivo abrir copie as linhas a seguir e cole no arquivo:
 
-        ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="666"
-        ATTR{idVendor}=="09fb", ATTR{idProduct}=="6002", MODE="666"
-        ATTR{idVendor}=="09fb", ATTR{idProduct}=="6003", MODE="666"
-        ATTR{idVendor}=="09fb", ATTR{idProduct}=="6010", MODE="666"
-        ATTR{idVendor}=="09fb", ATTR{idProduct}=="6810", MODE="666”
+        <p class="alert alert-secondary">
+          ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="666" </br>
+          ATTR{idVendor}=="09fb", ATTR{idProduct}=="6002", MODE="666" </br>
+          ATTR{idVendor}=="09fb", ATTR{idProduct}=="6003", MODE="666" </br>
+          ATTR{idVendor}=="09fb", ATTR{idProduct}=="6010", MODE="666" </br>
+          ATTR{idVendor}=="09fb", ATTR{idProduct}=="6810", MODE="666” </br>
+        </p>
+        
 
         Após você precisa testar se o USB está funcionando, execute:
-        cd /altera/13.1/quartus/bin
-        ./jtagconfig
-
-        O retorno deve ser similar a  “1) USB-Blaster [3-3]”
-
+        <p class="alert alert-light code">cd /altera/13.1/quartus/bin</p>
+        <p class="alert alert-light code">./jtagconfig</p>
+       
+        <p class="alert alert-warning">O retorno deve ser similar a  “1) USB-Blaster [3-3]”
+        </p>
+        
         Obs: Existe a opção de criar um ícone para não precisar navegar até as pastas, mas não é necessário
       </li>
     </ol>
     
+    <p>Referências:</p>
+    <ul>
+      <li>https://github.com/arthurmteodoro/install-quartus-linux</li>
+      <li>https://www.intel.com/content/dam/www/programmable/us/en/pdfs/literature/hb/cyclone-iv/cyclone4-handbook.pdf</li>
+    </ul>
   </section>
 
 
