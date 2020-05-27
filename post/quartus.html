@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Jhennifer Matias</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+ <link rel="stylesheet" href="../awesome/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="../css/font-awesome.min.css">
+  <!-- Custom styles for this template -->
+  <link href="../css/one-page-wonder.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico|Satisfy&display=swap" rel="stylesheet"> 
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html" style="color: #ee0979;">Jhennifer Matias</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html#sobre">Sobre</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html#portfolio">Projetos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../blog.html">Blog</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="head text-center">
+    <h1>Instalando o Quartus II no Ubuntu 19.10</h1>
+  </header>
+
+  <section class="conteudo">
+    <p>Olá! Sei que instalar o Quartus II envolve algum trabalho, e dá sempre algum erro,
+       deste modo vim compartilhar com você as etapas que precisei para fazer essa 
+       instalação, então vamos lá!
+    </p>
+
+    <ol>
+      <li>
+        Passo: O Quartus precisa de dependências 32 bits, assim o sistema precisa ser preparado assim execute os seguintes comando no terminal:
+        sudo dpkg --add-architecture i386
+        sudo apt update
+        sudo apt install libxft2:i386 libxext6:i386 libncurses5:i386 bzip2:i386
+      </li>
+      <li>
+        Passo: libpng não está sendo atualizada a partir do Ubuntu 16.04 então utilizar sudo apt install, não é uma opção. Tente:
+        sudo wget http://ftp.us.debian.org/debian/pool/main/libp/libpng/libpng12-0_1.2.50-2+deb8u3_amd64.deb
+        $ sudo dpkg -i libpng12-0_1.2.50-2+deb8u3_amd64.deb
+        
+        Obs: Caso isso não funcionar continue este tutorial, mas para frente damos outra solução.        
+      </li>
+      <li>
+        Passo: Agora faremos o download do Quartus no site da Intel, precisa ser a opção Lite, pois a mesma é gratuita.
+        https://fpgasoftware.intel.com/13.1/?edition=web&platform=linux
+      </li>
+      <li>
+        Passo: Quando o download estiver finalizado descompacte o arquivo, após no terminal entre na pasta que foi descompactada:
+        cd altera
+        cd Components
+        ./QuartusSetupWeb-13.1.0.162
+        A tela de instalação será aberta, faça download apenas dos devices da placa que você utilizará. Além disso deixe a opção Prime Help e ModelSim deselecionado.  
+      <picture>
+          <img src="../img/quartusII.png" class="img-fluid img-thumbnail rounded imagem" >
+      </picture>
+      </li>
+      <li>
+      Passo: para instalar o Quartus Help execute no terminal:
+      ./QuartusHelpSetup-13.1.0.162  
+      </li>
+      <li>
+        Passo: Agora instalando o ModelSim:
+        ./ModelSimSetup-13.1.0.162
+      </li>
+      <li>
+        Passo: Agora vamos executar
+        cd altera/13.1/quartus/bin
+        ./quartus
+        Agora se der erro por causa da libpng12, execute no terminal:
+        export QUARTUS_64BIT=1
+      </li>
+      <li>
+        Passo: USB Blaster: esse passo é extremamente importante
+        sudo 'gedit /etc/udev/rules.d/altera-usb-blaster.rules
+
+
+        Quando o arquivo abrir copie as linhas a seguir e cole no arquivo:
+
+        ATTR{idVendor}=="09fb", ATTR{idProduct}=="6001", MODE="666"
+        ATTR{idVendor}=="09fb", ATTR{idProduct}=="6002", MODE="666"
+        ATTR{idVendor}=="09fb", ATTR{idProduct}=="6003", MODE="666"
+        ATTR{idVendor}=="09fb", ATTR{idProduct}=="6010", MODE="666"
+        ATTR{idVendor}=="09fb", ATTR{idProduct}=="6810", MODE="666”
+
+        Após você precisa testar se o USB está funcionando, execute:
+        cd /altera/13.1/quartus/bin
+        ./jtagconfig
+
+        O retorno deve ser similar a  “1) USB-Blaster [3-3]”
+
+        Obs: Existe a opção de criar um ícone para não precisar navegar até as pastas, mas não é necessário
+      </li>
+    </ol>
+    
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="py-5 bg-black">
+    <div class="container">
+      <p class="m-0 text-center text-white small">Copyright &copy; Jhennifer Matias</p>
+      <a href="https://br.freepik.com/fotos-vetores-gratis/tecnologia"></a>
+    </div>
+    
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
